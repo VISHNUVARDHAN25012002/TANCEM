@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!-- Console Appender with normal text format -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- API Log Appender in JSON format -->
+    <appender name="API_LOG" class="ch.qos.logback.core.FileAppender">
+        <file>logs/api.json</file>
+        <append>true</append>
+<!--        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
+<!--            <fileNamePattern>logs/api-%d{yyyy-MM-dd}.json</fileNamePattern>-->
+<!--            <maxHistory>30</maxHistory>-->
+<!--        </rollingPolicy>-->
+        <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+            <providers>
+                <timestamp>
+                    <timeZone>UTC</timeZone>
+                </timestamp>
+                <pattern>
+                    <pattern>
+                        {
+                        "timestamp": "%d{yyyy-MM-dd'T'HH:mm:ss.SSS'Z'}",
+                        "level": "%level",
+                        "logger": "%logger",
+                        "message": "%message",
+                        "context": "%mdc",
+                        "exception": "%ex"
+                        }
+                    </pattern>
+                </pattern>
+            </providers>
+        </encoder>
+    </appender>
+
+    <!-- Error Log Appender in JSON format -->
+    <appender name="ERROR_LOG" class="ch.qos.logback.core.FileAppender">
+        <file>logs/error.json</file>
+        <append>true</append>
+        <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+            <providers>
+                <timestamp>
+                    <timeZone>UTC</timeZone>
+                </timestamp>
+                <pattern>
+                    <pattern>
+                        {
+                        "timestamp": "%d{yyyy-MM-dd'T'HH:mm:ss.SSS'Z'}",
+                        "level": "%level",
+                        "logger": "%logger",
+                        "message": "%message",
+                        "context": "%mdc",
+                        "exception": "%ex"
+                        }
+                    </pattern>
+                </pattern>
+            </providers>
+        </encoder>
+    </appender>
+
+    <!-- Exception Log Appender in JSON format -->
+    <appender name="EXCEPTION_LOG" class="ch.qos.logback.core.FileAppender">
+        <file>logs/exception.json</file>
+        <append>true</append>
+        <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+            <providers>
+                <timestamp>
+                    <timeZone>UTC</timeZone>
+                </timestamp>
+                <pattern>
+                    <pattern>
+                        {
+                        "timestamp": "%d{yyyy-MM-dd'T'HH:mm:ss.SSS'Z'}",
+                        "level": "%level",
+                        "logger": "%logger",
+                        "message": "%message",
+                        "context": "%mdc",
+                        "exception": "%ex"
+                        }
+                    </pattern>
+                </pattern>
+            </providers>
+        </encoder>
+    </appender>
+
+    <!-- DB Log Appender in JSON format -->
+    <appender name="DB_LOG" class="ch.qos.logback.core.FileAppender">
+        <file>logs/db.json</file>
+        <append>true</append>
+        <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+            <providers>
+                <timestamp>
+                    <timeZone>UTC</timeZone>
+                </timestamp>
+                <pattern>
+                    <pattern>
+                        {
+                        "timestamp": "%d{yyyy-MM-dd'T'HH:mm:ss.SSS'Z'}",
+                        "level": "%level",
+                        "logger": "%logger",
+                        "message": "%message",
+                        "context": "%mdc",
+                        "exception": "%ex"
+                        }
+                    </pattern>
+                </pattern>
+            </providers>
+        </encoder>
+    </appender>
+
+    <!-- Loggers -->
+    <logger name="com.Tancem.PIS.service.logService.api" level="INFO" additivity="false">
+        <appender-ref ref="API_LOG"/>
+    </logger>
+
+    <logger name="com.Tancem.PIS.service.logService.error" level="ERROR" additivity="false">
+        <appender-ref ref="ERROR_LOG"/>
+    </logger>
+
+    <logger name="com.Tancem.PIS.service.logService.exception" level="ERROR" additivity="false">
+        <appender-ref ref="EXCEPTION_LOG"/>
+    </logger>
+
+    <logger name="com.Tancem.PIS.service.logService.db" level="INFO" additivity="false">
+        <appender-ref ref="DB_LOG"/>
+    </logger>
+
+    <!-- Root Logger -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+
+</configuration>

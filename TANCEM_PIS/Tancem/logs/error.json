@@ -1,0 +1,1 @@
+{"@timestamp":"2024-08-14T09:02:03.231Z","timestamp":"2024-08-14T14:32:03.231Z","level":"ERROR","logger":"com.Tancem.PIS.Service.logService.error","message":"Error: Resource not found: No static resource tancem/pis/materials.","context":"","exception":""}
